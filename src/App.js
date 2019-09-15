@@ -5,9 +5,11 @@ import { Provider } from 'react-redux';
 import Routes from './routes';
 import Header from './components/Header';
 
-import store from './store';
+import './config/ReactotronConfig'; // precisa ser antes do store
 
 import GlobalStyle from './styles/global';
+
+import store from './store';
 
 function App() {
   return (
