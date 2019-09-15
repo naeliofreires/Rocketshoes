@@ -5,7 +5,13 @@ export const Types = {
 export default function cart(state = [], action) {
   switch (action.type) {
     case Types.ADD:
-      return [...state, action.product];
+      return [
+        ...state,
+        {
+          ...action.product,
+          amount: 1,
+        },
+      ];
     default:
       return state;
   }
