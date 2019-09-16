@@ -46,7 +46,7 @@ export default function Home() {
 
           <button
             type="button"
-            onClick={() => dispatch(CartActions.addProduct(product))}
+            onClick={() => dispatch(CartActions.addProductRequest(product.id))}
           >
             <div>
               <MdAddShoppingCart size={16} color="#FFF" />
