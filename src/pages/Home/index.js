@@ -39,7 +39,7 @@ export default function Home() {
 
           <button
             type="button"
-            onClick={() => dispatch(CartActions.AddProduct(product))}
+            onClick={() => dispatch(CartActions.addProduct(product))}
           >
             <div>
               <MdAddShoppingCart size={16} color="#FFF" />
