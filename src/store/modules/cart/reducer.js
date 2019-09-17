@@ -3,8 +3,9 @@ import produce from 'immer';
 export const Types = {
   ADD_REQUEST: '@cart/ADD_REQUEST',
   ADD_SUCCESS: '@cart/ADD_SUCCESS',
+  UPDATE_REQUEST: '@cart/UPDATE_REQUEST',
+  UPDATE_SUCCESS: '@cart/UPDATE_SUCCESS',
   REMOVE: '@cart/REMOVE',
-  UPDATE: '@cart/UPDATE',
 };
 
 export default function cart(state = [], action) {
@@ -25,11 +26,7 @@ export default function cart(state = [], action) {
         }
       });
 
-    case Types.UPDATE: {
-      if (action.amount <= 0) {
-        return state;
-      }
-
+    case Types.UPDATE_SUCCESS: {
       return produce(state, draft => {
         const productIndex = draft.findIndex(p => p.id === action.productId);
 
@@ -60,8 +57,14 @@ export const Creators = {
     productId,
   }),
 
-  updateProduct: (productId, amount) => ({
-    type: Types.UPDATE,
+  updateProductRequest: (productId, amount) => ({
+    type: Types.UPDATE_REQUEST,
+    productId,
+    amount,
+  }),
+
+  updateProductSuccess: (productId, amount) => ({
+    type: Types.UPDATE_SUCCESS,
     productId,
     amount,
   }),

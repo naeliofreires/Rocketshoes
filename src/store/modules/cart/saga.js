@@ -23,7 +23,7 @@ function* addToCart({ id }) {
   }
 
   if (productExists) {
-    yield put(CartActions.updateProduct(id, amount));
+    yield put(CartActions.updateProductSuccess(id, amount));
   } else {
     const response = yield call(api.get, `/products/${id}`);
 
@@ -37,4 +37,24 @@ function* addToCart({ id }) {
   }
 }
 
-export default all([takeLatest(CartTypes.ADD_REQUEST, addToCart)]);
+function* updateAmount(action) {
+  const { productId, amount } = action;
+
+  if (amount <= 0) return;
+
+  const stock = yield call(api.get, `/stock/${productId}`);
+
+  const stockAmount = stock.data.amount;
+
+  if (amount > stockAmount) {
+    toast.error('Quantidade solicitada fora de estoque');
+    return;
+  }
+
+  yield put(CartActions.updateProductSuccess(productId, amount));
+}
+
+export default all([
+  takeLatest(CartTypes.ADD_REQUEST, addToCart),
+  takeLatest(CartTypes.UPDATE_REQUEST, updateAmount),
+]);

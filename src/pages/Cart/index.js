@@ -32,11 +32,11 @@ export default function Cart() {
   );
 
   function increment(product) {
-    dispatch(CartActions.updateProduct(product.id, product.amount + 1));
+    dispatch(CartActions.updateProductRequest(product.id, product.amount + 1));
   }
 
   function decrement(product) {
-    dispatch(CartActions.updateProduct(product.id, product.amount - 1));
+    dispatch(CartActions.updateProductRequest(product.id, product.amount - 1));
   }
 
   return (
